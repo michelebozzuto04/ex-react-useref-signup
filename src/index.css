@@ -1,0 +1,28 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1080px;
+  padding: 20px;
+
+  label {
+    display: block;
+    margin-top: 10px;
+  }
+
+  input,
+  select,
+  textarea {
+    padding: 10px;
+  }
+
+  .actionContainer {
+    flex-direction: row;
+    gap: 20px;
+  }
+}
