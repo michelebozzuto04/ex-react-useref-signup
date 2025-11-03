@@ -26,3 +26,11 @@
     gap: 20px;
   }
 }
+
+.successMessage {
+  color: green;
+}
+
+.errorMessage {
+  color: red;
+}
