@@ -21,6 +21,10 @@
     padding: 10px;
   }
 
+  .button {
+    padding: 10px;
+  }
+
   .actionContainer {
     flex-direction: row;
     gap: 20px;
@@ -33,4 +37,13 @@
 
 .errorMessage {
   color: red;
+}
+
+.arrowContainer {
+  position: fixed;
+  margin: 20px;
+  bottom: 0;
+  right: 0;
+  background-color: cadetblue;
+  padding: 10px;
 }

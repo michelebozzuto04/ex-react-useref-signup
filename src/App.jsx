@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 function App() {
   const fullNameRef = useRef('');
@@ -7,10 +7,15 @@ function App() {
   const specializationRef = useRef('');
   const experienceRef = useRef('');
   const [description, setDescription] = useState('');
+  const formRef = useRef();
 
   const letters = "abcdefghijklmnopqrstuvwxyz";
   const numbers = "0123456789";
   const symbols = "!@#$%^&*()-_=+[]{}|;:'\\\",.<>?/`~";
+
+  useEffect(() => {
+    fullNameRef.current.focus()
+  }, [])
 
   const checkCharacters = (string, validationString) => {
     return string.split('').some(char => validationString.includes(char));
@@ -54,11 +59,24 @@ function App() {
     }
   }
 
+  const handleReset = () => {
+    fullNameRef.current.value = '';
+    setUsername('');
+    setPassword('');
+    specializationRef.current.value = '';
+    experienceRef.current.value = '';
+    setDescription('');
+  }
+
+  const handleArrowClick = () => {
+    return formRef.current.scrollIntoView({ behavior: 'smooth' })
+  }
+
   return (
     <div className='container'>
       <h1>Web Developer Signup</h1>
 
-      <form action="" onSubmit={(e) => handleSubmit(e)}>
+      <form ref={formRef} action="" onSubmit={(e) => handleSubmit(e)}>
         <label htmlFor='fullName'>
           Full Name
         </label>
@@ -144,9 +162,18 @@ function App() {
         </div>
 
         <div className="actionContainer">
-          <input type='submit' value="Submit" />
+          <input className='button' type='submit' value="Submit" />
+          <button className='button' onClick={handleReset}>Reset</button>
         </div>
       </form>
+
+
+      <div
+        className='arrowContainer'
+        onClick={handleArrowClick}
+      >
+        ↑ Torna all'inizio
+      </div>
     </div>
   )
 }
