@@ -1,11 +1,11 @@
 import { useRef, useState } from 'react'
 
 function App() {
-  const [fullName, setFullName] = useState('');
+  const fullNameRef = useRef('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [specialization, setSpecialization] = useState('');
-  const [experience, setExperience] = useState('');
+  const specializationRef = useRef('');
+  const experienceRef = useRef('');
   const [description, setDescription] = useState('');
 
   const letters = "abcdefghijklmnopqrstuvwxyz";
@@ -16,7 +16,6 @@ function App() {
     return string.split('').some(char => validationString.includes(char));
   }
 
-  const fullNameIsValid = fullName.trim() !== '';
   const usernameIsValid = username.trim() !== '' &&
     !username.includes(' ') &&
     checkCharacters(username, letters) &&
@@ -27,8 +26,6 @@ function App() {
     checkCharacters(password, letters) &&
     checkCharacters(password, numbers) &&
     checkCharacters(password, symbols);
-  const specializationIsValid = specialization.trim() !== '';
-  const experienceIsValid = experience.trim() !== '' && experience >= 0;
   const descriptionIsValid = description.trim() !== '' &&
     description.length >= 100 &&
     description.length <= 1000;
@@ -36,10 +33,24 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (fullNameIsValid && usernameIsValid && passwordIsValid && specializationIsValid && experienceIsValid && descriptionIsValid) {
-      console.log(fullName, username, password, specialization, experience, description);
+    if (
+      fullNameRef.current.value.trim() != '' &&
+      usernameIsValid &&
+      passwordIsValid &&
+      specializationRef.current.value.trim() != '' &&
+      experienceRef.current.value.trim() != '' && experienceRef.current.value >= 0 &&
+      descriptionIsValid
+    ) {
+      console.log(
+        fullNameRef.current.value,
+        username,
+        password,
+        specializationRef.current.value,
+        experienceRef.current.value,
+        description
+      );
     } else {
-      console.log('Attenzione! Compila i campi correttamente.')
+      console.log('Attenzione! Compila i campi correttamente.');
     }
   }
 
@@ -56,8 +67,7 @@ function App() {
           name='fullName'
           type='text'
           placeholder='Full Name'
-          value={fullName}
-          onChange={(e) => setFullName(e.target.value)}
+          ref={fullNameRef}
         />
 
         <label htmlFor='username'>
@@ -99,8 +109,7 @@ function App() {
         </label>
         <select
           id="specialization"
-          value={specialization}
-          onChange={(e) => setSpecialization(e.target.value)}
+          ref={specializationRef}
         >
           <option value="">--Select an option--</option>
           <option value="fullStack">Full Stack</option>
@@ -116,8 +125,7 @@ function App() {
           id='experience'
           min={0}
           step={1}
-          value={experience}
-          onChange={(e) => setExperience(e.target.value)}
+          ref={experienceRef}
         />
 
         <label htmlFor='description'>
